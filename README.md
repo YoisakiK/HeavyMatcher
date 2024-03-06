@@ -21,10 +21,11 @@ cmake .. && make && cd ..
 
 **optional** arguments:
 
-- -d: set the path of dataset to run, default dataset is CAIDA "1.dat"
+- -d: set the path of dataset to run, de7fault dataset is CAIDA "1.dat"
 - -m: set the memory size (KB), default memory is 400KB
 - -k: set the number of top flows, default **k** is 1000 
 
 # Output format
 
 Our program will print the Throughput of insertion, AAE, ARE and Precision of these algorithms on the screen.
+# HeavyMatcher

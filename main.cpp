@@ -30,13 +30,14 @@ static std::map<std::string, double> ARE;
 static std::map<std::string, int> _sum;
 static std::map<std::string, double> _throughput;
 static std::vector<sketch::BaseSketch*> func;
+static int threshold = 20;
 
 int main(int argc, char** argv)
 {
     int MEM=400,K=1000;
     int c;
     char dataset[40]={'\0'};
-    while((c=getopt(argc, argv, "d:m:k:"))!=-1) {
+    while((c=getopt(argc, argv, "d:m:k:t:"))!=-1) {
         switch(c) {
             case 'd':
                 strcpy(dataset,optarg);
@@ -46,6 +47,9 @@ int main(int argc, char** argv)
                 break;
             case 'k':
                 K=atoi(optarg);
+                break;
+            case 't':
+                threshold = atoi(optarg);
                 break;
         }
     }
@@ -102,10 +106,10 @@ int main(int argc, char** argv)
     // preparing Sketch
 
     // preparing CuckooSketchPro
-    func.push_back(new sketch::cuckoosketchpro::CuckooSketchPro(topk_freq, K, MEM));
+    func.push_back(new sketch::cuckoosketchpro::CuckooSketchPro(threshold, K, MEM));
 
     // preparing CuckooSketchFlag
-    func.push_back(new sketch::cuckoo_flag::CuckooSketchFlag(topk_freq, MEM));
+    func.push_back(new sketch::cuckoo_flag::CuckooSketchFlag(threshold, MEM));
 
     // prepare clear
     for (auto &iter : func) {
